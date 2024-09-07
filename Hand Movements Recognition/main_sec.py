@@ -5,16 +5,16 @@ import loadingInterface as litf
 import tkinter as tk
 from tkinter import messagebox
 
-user = ['AxelB', 'LoicA', 'CharlesAymericFG', 'ElHadjiBaraC']
-true_user = ['Axel', 'Loïc', 'Charles-Aymeric', 'El-Hadji Bara']
+user = ['**', '**', '**', '**']
+true_user = ['**', '**', '**', '**']
 
 #fonction de vérification des infos saisies au clavier
 def pass_verif():
     authentification_data = {
-        'AxelB': 'tdhAxelESIEE2023',
-        'LoicA': 'azerty',
-        'CharlesAymericFB': 'tdhCharlesAymericESIEE2023',
-        'ElHadjiBaraC': 'tdhElHadjiBaraESIEE2023',
+        '**': '**',
+        '**': '**',
+        '**': '**,
+        '**': '**',
     }
 
     user_password = entry_pass_field.get()
