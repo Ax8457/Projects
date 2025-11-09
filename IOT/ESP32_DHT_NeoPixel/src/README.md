@@ -36,3 +36,20 @@ DHTMetrics gets_DHT_metrics(){
   */
 }
 ````
+````c
+JsonObject craft_metrics_json(DHTMetrics m){
+  /*
+    This function handles DHTMetrics object returned by the previous function to return a
+    JSON object containing well formated payload with metrics.
+  */
+}
+````
+
+- NeoPixel and LEDs
+````c
+NeoPixel_setColor(Color c){
+  /*
+  
+  */
+}
+````
