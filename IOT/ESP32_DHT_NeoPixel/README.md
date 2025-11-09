@@ -7,10 +7,12 @@
 - 3PINS NeoPixel
 - 3 LEDs (yellow, red and green)
 
+<p align="center"><img src="S1.png" style="width: 50%"></p>
+
 **[Stack]**
 - Nodered (Docker)
 - Mongodb (Docker)
 - HiveMQ MQTT Broker (Public)
 - ArduinoIDE 
 
-<p align="center"><img src="S1.png"></p>
+<p align="center"><img src="Docker/S.png" style="width: 50%"></p>
