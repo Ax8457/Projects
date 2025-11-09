@@ -1,6 +1,6 @@
 /*
     IOT Application
-    Personal Project Axel BIEGALSKI
+    Personal Project 
 
 */
 
