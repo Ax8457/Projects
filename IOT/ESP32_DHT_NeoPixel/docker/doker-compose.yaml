@@ -1,0 +1,18 @@
+services:
+  nodered:
+    container_name: "nodered1"
+    image: "nodered/node-red"
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./vol_nodered/:/data
+      
+      
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data:/data/db
