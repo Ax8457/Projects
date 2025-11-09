@@ -56,13 +56,17 @@ void NeoPixel_setColor(Color c){
 ````c
 void flash_LED(int led_pin,int ledMode){
   /*
-    This function takes LED pin on the ESP32 and LED Mod (3 mods possibles swicth on, off and lighting) as arguments and update
-    right LED state.
+    This function takes LED pin on the ESP32 and LED Mod (3 mods possibles swicth on, off and lighting) as arguments
+    and updates right LED state.
   */
 }
 ````
 
 - MQTT communication
 ````c
-
+void connect_MQTT_broker(){
+  /*
+    This function establish connection with public hiveMQ MQTT broker. 
+  */
+}
 ````
