@@ -57,6 +57,13 @@ void flash_LED(int led_pin,int ledMode){
     and updates right LED state.
   */
 }
+
+Color getColor(JsonObject o){
+  /*
+    This function takes JSON Object received and handled by callback() function and extract the key (here a color) set
+    to true. Then the right Color type ENUM is returned (to be passed to NeoPixel_setColor function).
+  */
+}
 ````
 
 - MQTT comunication
@@ -77,7 +84,40 @@ void check_MQTT_connectionState(){
 void send_JSON_MQTT(JsonObject p ){
   /*
     This function takes the JSON formated object returned by craft_metrics_json()
-    and sends the JSON paylaod to MQTT Broker.
+    and sends the JSON paylaod to MQTT Broker (on the right topic).
+  */
+}
+
+void callback(char* topic, byte* payload, unsigned int length) {
+  /*
+    This function listens on command topic on the broker and is used to interpret and execute
+    remote commands received by the management server.
+  */
+}
+````
+- Commands processing
+````c
+CommandType getCommandType(const char* key) {
+  /*
+    This function takes extracted keys from JSON object received and handled by callback() function,
+    and maps the right ENUM CommandType type.
+  */
+}
+
+void apply_remote_command(JsonObject p){
+  /*
+    This function takes JSON object received and handled by callback() function, extracts the keys from JSON and
+    calls getCommandType() to get the CommandType associated. Then the right section of code is executed.
+  */
+}
+````
+- System health
+````c
+void check_system(){
+  /*
+    This function is called at each loop and checks system's health. A boolean is incremented if an issue is encountered
+    by different check functions . The score is set to 0 at each loop start and at the if the score is different from zero,
+    RED LED switches on.
   */
 }
 ````
