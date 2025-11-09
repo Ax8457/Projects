@@ -17,3 +17,15 @@
 - _Management Dashboard_ : This flow allows user to remotely send commands to ESP32 through dashboard connected to command topic of the broker.
 - _Temperature Alerting via LEDs_ : This flow automatically tickers LED/NeoPixel color based on temperature thresholds.
 - _Historical chart_ : This flow retreives data from database and plots longtime chart.
+
+#### JSON metrics
+````json
+{
+  _id: 6910f4be5b95620007ebf05c,
+  topic: 'hwu-e6046365-0f8e-49c5-a33c-6638f5ae539f/evt/status/fmt/json',
+  payload: { time: 1762718910035, temp: 24.1, humidity: 40, location: 'NUC' },
+  qos: 0,
+  retain: false,
+  _msgid: 'dbf00595223e4520'
+}
+````
