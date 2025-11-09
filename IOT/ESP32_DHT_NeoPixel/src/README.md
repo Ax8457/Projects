@@ -47,9 +47,22 @@ JsonObject craft_metrics_json(DHTMetrics m){
 
 - NeoPixel and LEDs
 ````c
-NeoPixel_setColor(Color c){
+void NeoPixel_setColor(Color c){
   /*
-  
+    This function takes an ENUM type color argument (custom) and set the corresponding color of the NeoPixel.
   */
 }
+````
+````c
+void flash_LED(int led_pin,int ledMode){
+  /*
+    This function takes LED pin on the ESP32 and LED Mod (3 mods possibles swicth on, off and lighting) as arguments and update
+    right LED state.
+  */
+}
+````
+
+- MQTT communication
+````c
+
 ````
