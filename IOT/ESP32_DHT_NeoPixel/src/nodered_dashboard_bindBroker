@@ -1,0 +1,88 @@
+[
+    {
+        "id": "9b503479e09c27ff",
+        "type": "tab",
+        "label": "Receive ESP32 data from broker",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "34e80e9ce9f29225",
+        "type": "mqtt in",
+        "z": "9b503479e09c27ff",
+        "name": "Data ESP32 Broker HiveMQ",
+        "topic": "hwu-e6046365-0f8e-49c5-a33c-6638f5ae539f/evt/status/fmt/json",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "f8d46e8bec7f0a0a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "a2005785dd6ffb18"
+            ]
+        ]
+    },
+    {
+        "id": "a2005785dd6ffb18",
+        "type": "change",
+        "z": "9b503479e09c27ff",
+        "name": "metrics",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Metrics",
+                "tot": "msg",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f8d46e8bec7f0a0a",
+        "type": "mqtt-broker",
+        "name": "BrokerHive",
+        "broker": "http://mqtt-dashboard.com",
+        "port": "8884",
+        "clientid": "clientId-v3g7u5bJoK",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
