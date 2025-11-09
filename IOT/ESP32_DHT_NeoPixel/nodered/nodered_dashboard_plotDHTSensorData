@@ -1,0 +1,349 @@
+[
+    {
+        "id": "4ce6f98c.254bf",
+        "type": "tab",
+        "label": "Plot DHT Sensor Data",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "49ce87c1.4ec838",
+        "type": "change",
+        "z": "4ce6f98c.254bf",
+        "name": "Chart Temperature",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Metrics.Temperature_C",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 730,
+        "y": 100,
+        "wires": [
+            [
+                "1d4ec5b5.82c9f2",
+                "6e950f1b003dd724"
+            ]
+        ]
+    },
+    {
+        "id": "2f57084.22acd78",
+        "type": "change",
+        "z": "4ce6f98c.254bf",
+        "name": "Chart Humidity",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Metrics.Humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 160,
+        "wires": [
+            [
+                "fda5229a.103b8",
+                "2f3ea5a3aed12120"
+            ]
+        ]
+    },
+    {
+        "id": "d7a2c22e.f27d1",
+        "type": "switch",
+        "z": "4ce6f98c.254bf",
+        "name": "Warn on High Values",
+        "property": "payload.Metrics.Temperature_C",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "30",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 740,
+        "y": 220,
+        "wires": [
+            [
+                "732cea1.a542294"
+            ]
+        ]
+    },
+    {
+        "id": "732cea1.a542294",
+        "type": "template",
+        "z": "4ce6f98c.254bf",
+        "name": "Alert Msg",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Alert : Critical Value Detected {{payload.d.temp}}",
+        "output": "str",
+        "x": 940,
+        "y": 220,
+        "wires": [
+            [
+                "80bbdd78.c69ae8"
+            ]
+        ]
+    },
+    {
+        "id": "46f3a55.224d15c",
+        "type": "mqtt in",
+        "z": "4ce6f98c.254bf",
+        "name": "",
+        "topic": "id/evt/status/fmt/json",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "f8d46e8bec7f0a0a",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "49ce87c1.4ec838",
+                "2f57084.22acd78",
+                "d7a2c22e.f27d1"
+            ]
+        ]
+    },
+    {
+        "id": "1d4ec5b5.82c9f2",
+        "type": "ui_chart",
+        "z": "4ce6f98c.254bf",
+        "name": "",
+        "group": "eadef827b4385d5f",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "label": "DHT Temp",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1010,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fda5229a.103b8",
+        "type": "ui_chart",
+        "z": "4ce6f98c.254bf",
+        "name": "",
+        "group": "eadef827b4385d5f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "DHT Humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1000,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80bbdd78.c69ae8",
+        "type": "ui_toast",
+        "z": "4ce6f98c.254bf",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 1130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2f3ea5a3aed12120",
+        "type": "ui_gauge",
+        "z": "4ce6f98c.254bf",
+        "name": "",
+        "group": "eadef827b4385d5f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity ",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#008fb3",
+            "#0077e6",
+            "#3a3ecb"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 980,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6e950f1b003dd724",
+        "type": "ui_gauge",
+        "z": "4ce6f98c.254bf",
+        "name": "",
+        "group": "eadef827b4385d5f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "T °C",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1010,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "f8d46e8bec7f0a0a",
+        "type": "mqtt-broker",
+        "name": "BrokerHive",
+        "broker": "http://mqtt-dashboard.com",
+        "port": "8884",
+        "clientid": "clientId-v3g7u5bJoK",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "eadef827b4385d5f",
+        "type": "ui_group",
+        "name": "ESP32 Monitoring",
+        "tab": "f6f3023f2ea2a2e0",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "f6f3023f2ea2a2e0",
+        "type": "ui_tab",
+        "name": "ESP32 Monitoring",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "10913d9e82b7a050",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
