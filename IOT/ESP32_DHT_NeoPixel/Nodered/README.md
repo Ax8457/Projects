@@ -7,3 +7,13 @@
 - node-red-dashboard
 - node-red
 - node-red-mongodb
+
+#### Node-Red flows
+<p align="justify">Each of the JSON files attached in this subfolder corresponds to a dedicated flow under Node-Red:</p>
+  
+- _Receive ESP32 data from Broker_ : This flow binds the broker and subscribes to the dedicated topic in order to receive metrics.
+- _Store sensor Data_ : This flow binds the mongodb data and stores metrics received.
+- _Plot DHT sensor Data_ : This flow creates a monitoring dashboard and plots DHT sensor live metrics.
+- _Management Dashboard_ : This flow allows user to remotely send commands to ESP32 through dashboard connected to command topic of the broker.
+- _Temperature Alerting via LEDs_ : This flow automatically tickers LED/NeoPixel color based on temperature thresholds.
+- _Historical chart_ : This flow retreives data from database and plots longtime chart.
