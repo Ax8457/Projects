@@ -1,0 +1,193 @@
+[
+    {
+        "id": "572a4fbb.49dd48",
+        "type": "tab",
+        "label": "Historical Chart",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "958dd94a.779118",
+        "type": "debug",
+        "z": "572a4fbb.49dd48",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "fe0204d0.c3dad8",
+        "type": "ui_chart",
+        "z": "572a4fbb.49dd48",
+        "name": "",
+        "group": "5571671c.8ea9b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "ESP8266 DHT Historian Chart",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "waiting for data",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "5000",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#387038",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 960,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a291ea3c.dcfa08",
+        "type": "debug",
+        "z": "572a4fbb.49dd48",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9e5cf2f1.9769b",
+        "type": "ui_button",
+        "z": "572a4fbb.49dd48",
+        "name": "",
+        "group": "11d8514.a44dcaf",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Load ESP8266 DHT Data",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 170,
+        "y": 60,
+        "wires": [
+            [
+                "ad26cd9d915b289f"
+            ]
+        ]
+    },
+    {
+        "id": "ad26cd9d915b289f",
+        "type": "mongodb in",
+        "z": "572a4fbb.49dd48",
+        "mongodb": "fb3b9588c974d6e8",
+        "name": "",
+        "collection": "iot_data",
+        "operation": "find",
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "c31f0811.b2031"
+            ]
+        ]
+    },
+    {
+        "id": "c31f0811.b2031",
+        "type": "function",
+        "z": "572a4fbb.49dd48",
+        "name": "Create a Chart Array for Chart.js",
+        "func": "var starttime = flow.get(\"start-time\");\nvar endtime = flow.get(\"end-time\");\n\n//if (!Array.isArray(msg.payload) || msg.payload.length === 0) {\n   // msg.payload = [];\n    //return msg;\n//}\n\nvar ChartData = [\n    {\n        series: [\"Temperature\", \"Humidity\"],\n        data: [[], []],\n        labels: [\"Temperature\", \"Humidity\"]\n    }\n];\n\nfor (var i = 0; i < msg.payload.length; i++) {\n    var item = msg.payload[i];\n    // Extract the nested payload\n    var p = item.payload;\n\n    // Defensive check\n    if (!p || typeof p.time === 'undefined') {\n        continue;\n    }\n\n    //if (p.time >= starttime && p.time <= endtime) {\n    ChartData[0].data[0].push({ x: p.time, y: p.temp });\n    ChartData[0].data[1].push({ x: p.time, y: p.humidity });\n   // }\n}\n\n// Sort by time ascending\nChartData[0].data[0].sort((a, b) => a.x - b.x);\nChartData[0].data[1].sort((a, b) => a.x - b.x);\n\nmsg.payload = ChartData;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 60,
+        "wires": [
+            [
+                "fe0204d0.c3dad8",
+                "958dd94a.779118"
+            ]
+        ]
+    },
+    {
+        "id": "5571671c.8ea9b",
+        "type": "ui_group",
+        "name": "Historical Data",
+        "tab": "1f3fcf14.3e0841",
+        "order": 1,
+        "disp": true,
+        "width": "18"
+    },
+    {
+        "id": "11d8514.a44dcaf",
+        "type": "ui_group",
+        "name": "Chart Controls",
+        "tab": "1f3fcf14.3e0841",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "fb3b9588c974d6e8",
+        "type": "mongodb",
+        "hostname": "mongodb",
+        "topology": "direct",
+        "connectOptions": "",
+        "port": 27017,
+        "db": "iot_db",
+        "name": ""
+    },
+    {
+        "id": "1f3fcf14.3e0841",
+        "type": "ui_tab",
+        "name": "Historical Data",
+        "icon": "fa-area-chart",
+        "order": 5
+    },
+    {
+        "id": "a4118a1abe79babc",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-mongodb": "0.2.5"
+        }
+    }
+]
