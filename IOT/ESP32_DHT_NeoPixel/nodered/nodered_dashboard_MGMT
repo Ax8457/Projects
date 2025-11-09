@@ -1,0 +1,335 @@
+[
+    {
+        "id": "6bad8bb6.70a5d4",
+        "type": "tab",
+        "label": "Management Dashboard",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e5ab460d.1ebe28",
+        "type": "ui_form",
+        "z": "6bad8bb6.70a5d4",
+        "name": "Dashboard form",
+        "label": "Management",
+        "group": "bbdc2197d819a6ba",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Suspend JSON Export logs",
+                "value": "suspend_json_export",
+                "type": "switch",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "suspend_json_export": false
+        },
+        "payload": "",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "topic": "",
+        "topicType": "str",
+        "splitLayout": false,
+        "className": "",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "df4ffabd.cc7a1"
+            ]
+        ]
+    },
+    {
+        "id": "df4ffabd.cc7a1",
+        "type": "mqtt out",
+        "z": "6bad8bb6.70a5d4",
+        "name": "",
+        "topic": "id/cmd/display/fmt/json",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f8d46e8bec7f0a0a",
+        "x": 960,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "64c8326996b3e3e2",
+        "type": "ui_form",
+        "z": "6bad8bb6.70a5d4",
+        "name": "Dashboard form",
+        "label": "NEO Pixel Color",
+        "group": "face9f51c5dcbb0d",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Blue",
+                "value": "blue",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Red",
+                "value": "red",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Purple",
+                "value": "purple",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Yellow",
+                "value": "yellow",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Pink",
+                "value": "pink",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Green",
+                "value": "green",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "White",
+                "value": "white",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            },
+            {
+                "label": "Orange",
+                "value": "orange",
+                "type": "checkbox",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "blue": false,
+            "red": false,
+            "purple": false,
+            "yellow": false,
+            "pink": false,
+            "green": false,
+            "white": false,
+            "orange": false
+        },
+        "payload": "",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "topic": "",
+        "topicType": "str",
+        "splitLayout": true,
+        "className": "",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "bfef9191732f2744"
+            ]
+        ]
+    },
+    {
+        "id": "bfef9191732f2744",
+        "type": "function",
+        "z": "6bad8bb6.70a5d4",
+        "name": "Format Time Series DB record",
+        "func": "node.warn(\"DEBUG PAYLOAD [IN]: \" + JSON.stringify(msg.payload, null, 2));\nlet obj = msg.payload;\nlet found = false;\n// if multiple color on true => take the first one\nfor (let key of Object.keys(obj)) {\n    if (!found && obj[key] === true) {\n        found = true; \n    } else {\n        obj[key] = false; \n    }\n}\nmsg.payload = {\n    color: obj\n};\nnode.warn(\"DEBUG PAYLOAD [OUT] : \" + JSON.stringify(msg.payload, null, 2));\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "df4ffabd.cc7a1"
+            ]
+        ]
+    },
+    {
+        "id": "d1447028fdc3a5cc",
+        "type": "ui_form",
+        "z": "6bad8bb6.70a5d4",
+        "name": "Dashboard Form",
+        "label": "Polling Interval",
+        "group": "bbdc2197d819a6ba",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Change Reporting Interval",
+                "value": "seconds",
+                "type": "number",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "seconds": ""
+        },
+        "payload": "",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "topic": "",
+        "topicType": "str",
+        "splitLayout": false,
+        "className": "",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "77077f56a9e7b334"
+            ]
+        ]
+    },
+    {
+        "id": "77077f56a9e7b334",
+        "type": "switch",
+        "z": "6bad8bb6.70a5d4",
+        "name": "Secs >= 0",
+        "property": "payload.seconds",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 340,
+        "wires": [
+            [
+                "e236fcc6dd5feb65"
+            ]
+        ]
+    },
+    {
+        "id": "e236fcc6dd5feb65",
+        "type": "change",
+        "z": "6bad8bb6.70a5d4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"Interval\":msg.payload.seconds}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "df4ffabd.cc7a1"
+            ]
+        ]
+    },
+    {
+        "id": "bbdc2197d819a6ba",
+        "type": "ui_group",
+        "name": "Remote Management",
+        "tab": "20d6f2a7c83b8682",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f8d46e8bec7f0a0a",
+        "type": "mqtt-broker",
+        "name": "BrokerHive",
+        "broker": "http://mqtt-dashboard.com",
+        "port": "8884",
+        "clientid": "clientId-v3g7u5bJoK",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "face9f51c5dcbb0d",
+        "type": "ui_group",
+        "name": "NEO Pixel Color",
+        "tab": "20d6f2a7c83b8682",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "20d6f2a7c83b8682",
+        "type": "ui_tab",
+        "name": "Remote Management",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9034075c93138911",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
