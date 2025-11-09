@@ -15,3 +15,4 @@ sudo docker-compose build
 sudo docker-compose up
 ````
 
+<p align="justify">Once the image is build and containers are running mongodb can be accessed on the port 27017 of the localhost and the application Node-Red on the port 1880 (HTTP) </p>
