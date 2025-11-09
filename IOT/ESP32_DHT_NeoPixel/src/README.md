@@ -18,8 +18,7 @@ void setup_wifi(){
     is successfuly connected to Wi-Fi, the yellow LED switches on.
   */
 }
-````
-````c
+
 void void check_wifi_state(){
   /*
     This function checks the wifi state, while the connection is lost, the esp32 tries to reconnect.
@@ -35,8 +34,7 @@ DHTMetrics gets_DHT_metrics(){
     and return a custom DHT structure variable containing metrics.
   */
 }
-````
-````c
+
 JsonObject craft_metrics_json(DHTMetrics m){
   /*
     This function handles DHTMetrics object returned by the previous function to return a
@@ -52,8 +50,7 @@ void NeoPixel_setColor(Color c){
     This function takes an ENUM type color argument (custom) and set the corresponding color of the NeoPixel.
   */
 }
-````
-````c
+
 void flash_LED(int led_pin,int ledMode){
   /*
     This function takes LED pin on the ESP32 and LED Mod (3 mods possibles swicth on, off and lighting) as arguments
@@ -62,11 +59,25 @@ void flash_LED(int led_pin,int ledMode){
 }
 ````
 
-- MQTT communication
+- MQTT comunication
 ````c
 void connect_MQTT_broker(){
   /*
-    This function establish connection with public hiveMQ MQTT broker. 
+    This function establishes connection with public hiveMQ MQTT broker. 
+  */
+}
+
+void check_MQTT_connectionState(){
+  /*
+    This function checks connection state with the broker. While the connection is
+    lost, it tries to reconnect.
+  */
+}
+
+void send_JSON_MQTT(JsonObject p ){
+  /*
+    This function takes the JSON formated object returned by craft_metrics_json()
+    and sends the JSON paylaod to MQTT Broker.
   */
 }
 ````
