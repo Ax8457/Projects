@@ -4,8 +4,8 @@
 
 - 1 Docker for nodred application
 - 1 Docker for mongodb storage
-<p align="justify">Below is the schema of network architecture</p>
-
+<p align="justify">Below is the schema of network architecture:</p>
+<p align="center"><img src="S.png" style="width:35%"></p>
 <p align="justify">To build the 2 dockers: </p>
 
 ````bash
