@@ -1,4 +1,4 @@
-# Weather condition measurement with home-made IOT sensor
+# Weather conditions measurement with home-made IOT sensor
 <p align="justify">This project is implements/builds of home-made IOT sensor used to measure temperature and humidity. Below is the stack and hardware used to do so:</p>
 
 **[Hardware]**
