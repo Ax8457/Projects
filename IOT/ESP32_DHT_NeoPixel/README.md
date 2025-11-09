@@ -13,4 +13,4 @@
 - HiveMQ MQTT Broker (Public)
 - ArduinoIDE 
 
-<p align="center"><img src="S.png"></p>
+<p align="center"><img src="S1.png"></p>
