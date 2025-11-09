@@ -1,0 +1,160 @@
+[
+    {
+        "id": "f57f32df.2e86d",
+        "type": "tab",
+        "label": "Store Sensor Data",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3f0be2ca.a1cc0e",
+        "type": "function",
+        "z": "f57f32df.2e86d",
+        "name": "Format Time Series DB record",
+        "func": "//node.warn(\"DEBUG PAYLOAD [IN] : \" + JSON.stringify(msg.payload, null, 2));\nmsg.payload = {\n    time: new Date().getTime(),\n    temp: msg.payload.Metrics.Temperature_C,\n    humidity: msg.payload.Metrics.Humidity,\n    location: \"NUC\"\n};\n//node.warn(\"DEBUG PAYLOAD [OUT] :\" + JSON.stringify(msg.payload, null, 2));\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 220,
+        "wires": [
+            [
+                "51ccebd43c49cca7"
+            ]
+        ]
+    },
+    {
+        "id": "826667e0.94458",
+        "type": "mqtt in",
+        "z": "f57f32df.2e86d",
+        "name": "",
+        "topic": "id/evt/status/fmt/json",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "f8d46e8bec7f0a0a",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 260,
+        "y": 100,
+        "wires": [
+            [
+                "3f0be2ca.a1cc0e"
+            ]
+        ]
+    },
+    {
+        "id": "a0ee0f3a84275b08",
+        "type": "debug",
+        "z": "f57f32df.2e86d",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ac7578b956ba78c3",
+        "type": "mongodb out",
+        "z": "f57f32df.2e86d",
+        "mongodb": "fb3b9588c974d6e8",
+        "name": "Bathroom",
+        "collection": "training_set",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 1040,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b26de40fc1cf549e",
+        "type": "mongodb out",
+        "z": "f57f32df.2e86d",
+        "mongodb": "fb3b9588c974d6e8",
+        "name": "NUC",
+        "collection": "training_set",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 1030,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "51ccebd43c49cca7",
+        "type": "mongodb out",
+        "z": "f57f32df.2e86d",
+        "mongodb": "fb3b9588c974d6e8",
+        "name": "",
+        "collection": "iot_testset",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 960,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "f8d46e8bec7f0a0a",
+        "type": "mqtt-broker",
+        "name": "BrokerHive",
+        "broker": "http://mqtt-dashboard.com",
+        "port": "8884",
+        "clientid": "clientId-v3g7u5bJoK",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fb3b9588c974d6e8",
+        "type": "mongodb",
+        "hostname": "mongodb",
+        "topology": "direct",
+        "connectOptions": "",
+        "port": 27017,
+        "db": "iot_db",
+        "name": ""
+    },
+    {
+        "id": "b5335959a0720d1d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-node-mongodb": "0.2.5"
+        }
+    }
+]
