@@ -1,5 +1,20 @@
 # Source files of the project
 
+## Features implemented
+**[Hardware]**
+
+- The Red LED is lighting if the system enters a critical state, for instance if the metrics export fails, if the JSON export is suspended, if the sensor is unplugged ...
+- The Green LED remains lighting if no problem is encountered
+- The Yellow LED indicates if the connection to Wi-Fi is OK. If the yellow led is off, it means the connection to the network has been lost.
+- The NeoPixel follows temperature thresholds and auto updates the color of the pixel (from green to red). It raises alerts as well, displayed directly on the dashboard
+- The device exports metrics and data in JSON format
+
+
+**[Commands]**
+- Possibility to suspend JSON export: it means the sensor no longer sends metrics to broker  
+- Possibility to change NeoPixel color when the JSON export is suspended (otherwise the color is auto adjusted by thresholds and color immediately switch with respect to temperature) 
+- Possibility to increase polling interval: the payload sent is used to ticker delay between metrics sending on the ESP32
+
 ## Application source : application.c
 <p align="justify"> This file contains the code uploaded on the ESP32. The IDE used is Arduino IDE and for this project following librabries are mandatory: </p>
 
