@@ -1,5 +1,6 @@
 /*
     IOT Application
+    Personal Project Axel BIEGALSKI
 
 */
 
@@ -34,13 +35,13 @@ DHT dht(DHTPIN, DHTTYPE);
 // MQTT connection details
 #define MQTT_HOST "broker.hivemq.com"
 #define MQTT_PORT 1883
-#define MQTT_DEVICEID "hwu-e6046365-0f8e-49c5-a33c-6638f5ae539f"
+#define MQTT_DEVICEID "id"
 #define MQTT_USER "" // no need for authentication, for now
 #define MQTT_TOKEN "" // no need for authentication, for now
-#define MQTT_TOPIC "hwu-e6046365-0f8e-49c5-a33c-6638f5ae539f/evt/status/fmt/json"
-#define MQTT_TOPIC_DISPLAY "hwu-e6046365-0f8e-49c5-a33c-6638f5ae539f/cmd/display/fmt/json" 
+#define MQTT_TOPIC "id/evt/status/fmt/json"
+#define MQTT_TOPIC_DISPLAY "id/cmd/display/fmt/json" 
 //https://www.hivemq.com/demos/websocket-client/
-//user: 0x4X3L , password:e6046365-0f8e-49c5-a33c-6638f5ae539f
+//user: redacted , password:redacted
 //clientID clientId-v3g7u5bJoK
 //MQTT object
 void callback(char* topic, byte* payload, unsigned int length);
@@ -167,8 +168,8 @@ void NeoPixel_setColor(Color c) {
 //Wifi setup
 void setup_wifi(){
   WiFi.mode(WIFI_STA); //Set the ESP to station mode (client)
-  char* ssid = "Glide-Resident";
-  char* password = "LureSlickCage";
+  char* ssid = "redacted";
+  char* password = "redacted";
   WiFi.begin(ssid, password);
   delay(3000);
   if (WiFi.status() == WL_CONNECTED){
@@ -317,6 +318,13 @@ void apply_remote_command(JsonObject p){
   }
 }
 
+//check log export
+void check_json_log_export(bool j_e){
+  if (!j_e){
+      isOk += 1; //if true => exprot suspended
+  }
+}
+
 //callback function
 void callback(char* topic, byte* payload, unsigned int length) {
   // handle message arrived
@@ -400,7 +408,7 @@ void check_system(){
   else{
     Serial.println("[!] System in error state");
     flash_LED(LED_GREEN, 0);
-    flash_LED(LED_RED,1);
+    flash_LED(LED_RED,1); 
   }
 }
 
@@ -486,6 +494,7 @@ void loop() {
   isOk = 0; // reset error counter 
   check_wifi_state(); 
   check_MQTT_connectionState();
+  check_json_log_export(jsonExport);
   if (jsonExport){
     DHTMetrics m = get_DHT_metrics();
     JsonObject p = craft_metrics_json(m);
