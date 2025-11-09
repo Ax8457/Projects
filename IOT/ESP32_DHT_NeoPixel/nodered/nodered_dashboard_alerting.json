@@ -1,0 +1,266 @@
+[
+    {
+        "id": "27aa2877.e08a5",
+        "type": "tab",
+        "label": "Temperature Alerting vie LED",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f6355b73.7c595",
+        "type": "change",
+        "z": "27aa2877.e08a5",
+        "name": "Threshold 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"color\": {     \"green\": true   } }",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 60,
+        "wires": [
+            [
+                "1b32dddf.4c5aea"
+            ]
+        ]
+    },
+    {
+        "id": "f8f8ce92.7aa5e",
+        "type": "switch",
+        "z": "27aa2877.e08a5",
+        "name": "",
+        "property": "payload.Metrics.Temperature_C",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "0",
+                "vt": "num",
+                "v2": "15",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "15",
+                "vt": "num",
+                "v2": "30",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "30",
+                "vt": "num",
+                "v2": "45",
+                "v2t": "num"
+            },
+            {
+                "t": "gte",
+                "v": "50",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 590,
+        "y": 420,
+        "wires": [
+            [
+                "f6355b73.7c595"
+            ],
+            [
+                "aacd5412.ae47a"
+            ],
+            [
+                "c55ea44f.8ca5e8"
+            ],
+            [
+                "97882982.e7a308"
+            ]
+        ]
+    },
+    {
+        "id": "aacd5412.ae47a",
+        "type": "change",
+        "z": "27aa2877.e08a5",
+        "name": "Threshold 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"color\": {     \"yellow\": true   } }",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 120,
+        "wires": [
+            [
+                "1b32dddf.4c5aea"
+            ]
+        ]
+    },
+    {
+        "id": "c55ea44f.8ca5e8",
+        "type": "change",
+        "z": "27aa2877.e08a5",
+        "name": "Threshold 3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"color\": {     \"orange\": true   } }",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "1b32dddf.4c5aea"
+            ]
+        ]
+    },
+    {
+        "id": "97882982.e7a308",
+        "type": "change",
+        "z": "27aa2877.e08a5",
+        "name": "Threshold 4",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"color\": {     \"red\": true   } }",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 240,
+        "wires": [
+            [
+                "1b32dddf.4c5aea"
+            ]
+        ]
+    },
+    {
+        "id": "18c7b740.2927f1",
+        "type": "mqtt in",
+        "z": "27aa2877.e08a5",
+        "name": "",
+        "topic": "id/evt/status/fmt/json",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "f8d46e8bec7f0a0a",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "f8f8ce92.7aa5e"
+            ]
+        ]
+    },
+    {
+        "id": "1b32dddf.4c5aea",
+        "type": "mqtt out",
+        "z": "27aa2877.e08a5",
+        "name": "",
+        "topic": "id/cmd/display/fmt/json",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f8d46e8bec7f0a0a",
+        "x": 1060,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a2abedb0.0c5408",
+        "type": "change",
+        "z": "27aa2877.e08a5",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "(\t$topicParts :=$split(topic, '/');\t\"iot-2/type/\"&$topicParts[2]&\"/id/\"&$topicParts[4]&\"/cmd/display/fmt/json\"\t)\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f8d46e8bec7f0a0a",
+        "type": "mqtt-broker",
+        "name": "BrokerHive",
+        "broker": "http://mqtt-dashboard.com",
+        "port": "8884",
+        "clientid": "clientId-v3g7u5bJoK",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
