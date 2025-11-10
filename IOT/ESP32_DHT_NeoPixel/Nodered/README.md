@@ -20,8 +20,8 @@
 
 ### JSON metrics
 <p align="justify">The metric payloads are sent JSON formated and are processed and reshaped mutliple times going through different flows of Node-Red.</p>
+<p align="justify">Below is the payload sent by the ESP32 on the broker: </p>
 
-#### step1 : Payload sent by ESP32 
 ````json
 {
   "Metrics": {
@@ -35,8 +35,19 @@
 }
 ````
 
-<p align="justify"></p>
+<p align="justify">Before being wirtten to db the payload is processed by a dedicated module in Node-Red applying the javascript function below :</p>
 
+````javascript
+//node.warn("DEBUG PAYLOAD [IN] : " + JSON.stringify(msg.payload, null, 2));
+msg.payload = {
+    time: new Date().getTime(),
+    temp: msg.payload.Metrics.Temperature_C,
+    humidity: msg.payload.Metrics.Humidity,
+};
+//node.warn("DEBUG PAYLOAD [OUT] :" + JSON.stringify(msg.payload, null, 2));
+return msg;
+````
+And below is finally the payload wirtten to database :
 ````json
 {
   "_id": "6910f4be5b95620007ebf05c",
@@ -45,7 +56,6 @@
     "time": 1762718910035,
     "temp": 24.1,
     "humidity": 40,
-    "location": "NUC"
   },
   "qos": 0,
   "retain": false,
