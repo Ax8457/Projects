@@ -28,7 +28,7 @@
     "Temperature_C": 23.8,
     "Temperature_F": 74.84,
     "Humidity": 38
-  },
+  }
 }
 ````
 
