@@ -29,9 +29,6 @@
     "Temperature_F": 74.84,
     "Humidity": 38
   },
-  "Time": {
-    "Time": "Sunday, November 09 2025 23:14:06"
-  }
 }
 ````
 
