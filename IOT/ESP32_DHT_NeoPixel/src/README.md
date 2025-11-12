@@ -12,7 +12,7 @@
 
 **[Commands]**
 - Possibility to suspend JSON export: it means the sensor no longer sends metrics to broker  
-- Possibility to change NeoPixel color when the JSON export is suspended (otherwise the color is auto adjusted by thresholds and color immediately switch with respect to temperature). If multiple colors are selected, this is the first one in the JSON which is selected to update NeoPixel Color
+- Possibility to change NeoPixel color when the JSON export is suspended (otherwise the color is auto adjusted by thresholds and color immediately switches with respect to temperature). If multiple colors are selected, this is the first one in the JSON which is selected to update NeoPixel Color
 - Possibility to increase polling interval: the payload sent is used to ticker delay between metrics sending on the ESP32
 
 ## Application source : application.c
