@@ -1,0 +1,11 @@
+[Unit]
+Description=Keycloak
+After=network.target
+ 
+[Service]
+User=keycloakuser
+Group=keycloakuser
+ExecStart=/home/keycloakuser/keycloak-21.0.2/bin/kc.sh start  --https-certificate-file=/home/keycloakuser/keycloak-21.0.2/identity.homelab1.local.crt --https-certificate-key-file=/home/keycloakuser/keycloak-21.0.2/identity.homelab1.local.pem --optimized --hostname=identity.homelab1.local  --http-host=127.0.0.1 --proxy=edge
+
+[Install]
+WantedBy=multi-user.target
